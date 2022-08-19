@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Euler - Problem 7: Largest product in series</title>
+    <style>
+        * {
+            font: 28px monospace;
+        }
+    </style>
+    <script>
+        "use strict";
+        var circumference = 1000;
+
+        var i = 0;
+        var found = false;
+        var result;
+
+        for (var a = 1; a < circumference / 2; a++) {
+            for (var b = a + 1; b < circumference / 2; b++) {
+                i++;
+                var c = circumference - (a + b);
+                if (Math.pow(a, 2) + Math.pow(b, 2) == Math.pow(c, 2)) {
+                    result = { a, b, c };
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                break;
+            }
+        }
+        document.write('Result: ' + JSON.stringify(result) + '<br />');
+        document.write('Found in ' + i + ' iterations.');
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

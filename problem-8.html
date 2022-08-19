@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Euler - Problem 7: Largest product in series</title>
+    <style>
+        * {
+            font: 28px monospace;
+        }
+    </style>
+    <script>
+        "use strict";
+        /**
+         * Summary:
+         * This traverses the entire number by multiplying the resulting value by the next digit in the series. If the multiplied numbers exceed 13, 
+         * then divids the resulting value from the first digit of the current chunk. This calculates the multiplications in a single phase, making the 
+         * entire algorithm O(N).
+         * 
+         * Complexity: O(N)
+         * **/
+
+        const NUMBER = '7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450';
+        const LENGTH = 13;
+
+        println('<hr /> Maximum value: ' + getMaxMultiplication(NUMBER, LENGTH));
+
+        function getMaxMultiplication(number, length) {
+            let arr = number.split(''),
+                chunk = '0',
+                incrementer = 0,
+                value = 0,
+                max = 0;
+
+            println('Input number: ' + number + '<hr />');
+
+            for (let i = 0; i < arr.length; i++) {
+                if (parseInt(arr[i]) == 0) {
+                    chunk = '0';
+                    value = 0;
+                    incrementer = 0;
+                    continue;
+                }
+
+                incrementer++;
+                if (incrementer == 1) {
+                    chunk = arr[i];
+                    value = parseInt(arr[i]);
+                } else {
+                    chunk += arr[i];
+                    value *= parseInt(arr[i]);
+                }
+                if (incrementer > length) {
+                    chunk = chunk.substr(1, length);
+                    value /= parseInt(arr[i - length]);
+                }
+                if (incrementer > length - 1) {
+                    println(chunk + ' > ' + value);
+                    max = value > max ? value : max;
+                } else {
+                    println(chunk);
+                }
+            }
+
+            return max;
+        }
+
+        function println(s) {
+            document.write(s + '<br />');
+        } 
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

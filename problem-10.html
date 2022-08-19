@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        "use strict";
+
+        function getPrimeNumbers(max, getSum) {
+            let positions = [0, 0];
+            for (let i = 0; i < max; i++) 
+                positions.push(true);
+
+            for (let i = 0; Math.pow(i, 2) < max; i++) {
+                if (!positions[i]) 
+                    continue;
+                    
+                for (let j = 2 * i; j < max; j += i)
+                    positions[j] = false;
+            }
+
+            if (getSum) {
+                let sum = 0;
+                for (let i = 0; i < max; i++) 
+                    if (positions[i])
+                        sum += i;
+                return sum;
+            }
+
+            let primes = [];
+            for (let i = 0; i < max; i++) 
+                if (positions[i])
+                    primes.push(i);
+            return primes;
+        }
+
+        let sum = getPrimeNumbers(1000, false); //2000000
+        document.write(JSON.stringify(sum));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
